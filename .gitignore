@@ -9,6 +9,7 @@ out/
 workspace.xml
 .idea/**/workspace.xml
 *.iml
+Pokemon Example.iml
 
 ### Eclipse ###
 .apt_generated
@@ -33,4 +34,4 @@ bin/
 .vscode/
 
 ### Mac OS ###
-.DS_Store
+
