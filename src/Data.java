@@ -12,25 +12,24 @@ import java.util.List;
 
 
 /* Change this class name to a meaningful name for one record from the dataset.
-* Example: Country,Year,Birth Rate,Business Tax Rate,CO2 Emissions,Days to Start Business,Ease of Business,Energy Usage,GDP,Health Exp % GDP,Health Exp/Capita,Hours to do Tax,Infant Mortality Rate,Internet Usage,Lending Interest,Life Expectancy Female,Life Expectancy Male,Mobile Phone Usage,Number of Records,Population 0-14,Population 15-64,Population 65+,Population Total,Population Urban,Region,Tourism Inbound,Tourism Outbound
-*  */
-class OneItem
-{
+ * Example: Country,Year,Birth Rate,Business Tax Rate,CO2 Emissions,Days to Start Business,Ease of Business,Energy Usage,GDP,Health Exp % GDP,Health Exp/Capita,Hours to do Tax,Infant Mortality Rate,Internet Usage,Lending Interest,Life Expectancy Female,Life Expectancy Male,Mobile Phone Usage,Number of Records,Population 0-14,Population 15-64,Population 65+,Population Total,Population Urban,Region,Tourism Inbound,Tourism Outbound
+ *  */
+class OneItem {
 
     // Add at least 3 attributes found in the data file
-    private String location;
-    private int year;
-    private String month;
-    private String period;
-    private String indicator;
-    private int dataValue;
+    private final String location;
+    private final int year;
+    private final String month;
+    private final String period;
+    private final String indicator;
+    private final int dataValue;
 
     // Add a constructor that initializes the attributes
-    public OneItem(String location, int year, String month){
-        this(location, year, month, "Monthly" , "Number of", 0);
+    public OneItem(String location, int year, String month) {
+        this(location, year, month, "Monthly", "Number of", 0);
     }
 
-    public OneItem(String location, int year, String month, String period, String indicator, int dataValue){
+    public OneItem(String location, int year, String month, String period, String indicator, int dataValue) {
         this.location = location;
         this.year = year;
         this.month = month;
@@ -40,16 +39,34 @@ class OneItem
     }
 
     // Add any getters and toString methods that you need
-    public String getLocation() { return location; }
-    public int getYear() { return year; }
-    public String getMonth() { return month; }
-    public String getBirthRate() { return period; }
-    public String getIndicator() { return indicator; }
-    public int getDataValue() { return dataValue; }
+    public String getLocation() {
+        return location;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public String getMonth() {
+        return month;
+    }
+
+    public String getBirthRate() {
+        return period;
+    }
+
+    public String getIndicator() {
+        return indicator;
+    }
+
+    public int getDataValue() {
+        return dataValue;
+    }
 
     @Override
     public String toString() {
-        return new StringBuilder().append("OneItem{")
+        return new StringBuilder()
+                .append("OneItem{")
                 .append("location='").append(location)
                 .append(", year='").append(year)
                 .append(", month='").append(month)
@@ -63,12 +80,11 @@ class OneItem
 }
 
 /* Change this class name to a meaningful name for the whole dataset. */
-public class Data
-{
+public class Data {
     // Declare an ArrayList of your class type
     List<OneItem> lstOneItems = new ArrayList<OneItem>();
 
-    private int tryParseInt(String possibleInt){
+    private int tryParseInt(String possibleInt) {
         try {
             return Integer.parseInt(possibleInt);
         } catch (NumberFormatException e) {
@@ -78,7 +94,7 @@ public class Data
 
     // Write a method to read in the data (it may throw an exception)
     // STATE,Population in 2016 from census.gov,Non-insured percentage (percentage of people who do not have health insurance in 2016 from CDC.gov),Firearms Death RATE of death from firearms for every 100K population in 2016 from CDC.gov,Firearm Deaths totals in 2016,Drug Overdose death rates per 100K population 2016,Drug overdose deaths total,URL for state info: base url https://www.cdc.gov
-    public void importDataFromFile(){
+    public void importDataFromFile() {
         String location, month, period, indicator;
         int year, dataValue;
         String[] tokens = null;
@@ -103,7 +119,7 @@ public class Data
         }
     }
 
-    private OneItem extractItemFromText(String line){
+    private OneItem extractItemFromText(String line) {
         String[] tokens = line.split(","); // Split line by commas
         String location = tokens[0];
         int year = tryParseInt(tokens[1]);
@@ -117,7 +133,7 @@ public class Data
     /**
      * Import a list of OneItem instances from a .csv file stored on the web in DropBox and publicly accessible.
      */
-    public void importDateFromUrl() {
+    public void importDataFromUrl() {
         // IMPORTANT NOTE: When reading a text file from DropBox, you MUST change the end of the generated
         // public link from &dl=0 to &dl=1; otherwise, you get HTML instead of text.
         final String fileURL = "https://www.dropbox.com/s/t8vh8a1rgq41d86/StateData.csv?st=p2b1ypzw&dl=1";
@@ -130,7 +146,7 @@ public class Data
 
             while ((line = reader.readLine()) != null) {
                 OneItem oneItem = extractItemFromText(line);
-                lstOneItems.add( oneItem );
+                lstOneItems.add(oneItem);
             }
 
             reader.close();
@@ -144,22 +160,21 @@ public class Data
     // Write a method that does something with the data
     // for example find the object with a min or max attribute value
     // or print out all the objects of a certain attribute value.
-    public void display2023Information(){
-        for (OneItem oneItem : lstOneItems){
-            if(oneItem.getYear() == 2023){
+    public void display2023Information() {
+        for (OneItem oneItem : lstOneItems) {
+            if (oneItem.getYear() == 2023) {
                 System.out.println(oneItem);
             }
         }
     }
 
-    public static void main(String[] args) throws IOException
-    {
+    public static void main(String[] args) throws IOException {
         // STATE,Population in 2016 from census.gov,Non-insured percentage (percentage of people who do not have health insurance in 2016 from CDC.gov),Firearms Death RATE of death from firearms for every 100K population in 2016 from CDC.gov,Firearm Deaths totals in 2016,Drug Overdose death rates per 100K population 2016,Drug overdose deaths total,URL for state info: base url https://www.cdc.gov
         Data d = new Data(); // change to your class name
 
         // Call your method to read in the data
         //d.importDataFromFile();
-        d.importDateFromUrl();
+        d.importDataFromUrl();
 
         // Call your method to do something with the data
         d.display2023Information();
