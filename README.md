@@ -22,5 +22,5 @@
 
 ## Developer Notes
 
-STATE,Population in 2016 from census.gov,Non-insured percentage (percentage of people who do not have health insurance in 2016 from CDC.gov),Firearms Death RATE of death from firearms for every 100K population in 2016 from CDC.gov,Firearm Deaths totals in 2016,Drug Overdose death rates per 100K population 2016,Drug overdose deaths total,URL for state info: base url https://www.cdc.gov
+* [URL to StateData.csv](https://1drv.ms/u/s!Ash3pFpgn-Cnyr18zLwmbT6q_S0Psg?e=EQiwfQ)
 

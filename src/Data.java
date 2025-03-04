@@ -98,8 +98,6 @@ public class Data
         }
     }
 
-
-
     // Write a method that does something with the data
     // for example find the object with a min or max attribute value
     // or print out all the objects of a certain attribute value.
