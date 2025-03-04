@@ -1,9 +1,12 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
+//
+import java.net.*;
 
 /* Change this class name to a meaningful name for one record from the dataset.
 * Example: Country,Year,Birth Rate,Business Tax Rate,CO2 Emissions,Days to Start Business,Ease of Business,Energy Usage,GDP,Health Exp % GDP,Health Exp/Capita,Hours to do Tax,Infant Mortality Rate,Internet Usage,Lending Interest,Life Expectancy Female,Life Expectancy Male,Mobile Phone Usage,Number of Records,Population 0-14,Population 15-64,Population 65+,Population Total,Population Urban,Region,Tourism Inbound,Tourism Outbound
@@ -82,24 +85,63 @@ public class Data
             String line;
             // Loop through each row to split it into attributes.
             while ((line = reader.readLine()) != null) {
-                tokens = line.split(","); // Split line by commas
-                location = tokens[0];
-                year = tryParseInt(tokens[1]);
-                month = tokens[2];
-                period = tokens[3];
-                indicator = tokens[4];
-                dataValue = tryParseInt(tokens[5]);
+                OneItem oneItem = null;
+                try {
+                    oneItem = extractItemFromText(line);
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
                 //     Create a new  object from the attributes.
                 //     and save it into the ArrayList.
-                lstOneItems.add( new OneItem(location, year, month, period, indicator, dataValue));
+                //lstOneItems.add( oneItem );
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    private OneItem extractItemFromText(String line){
+        String[] tokens = line.split(","); // Split line by commas
+        String location = tokens[0];
+        int year = tryParseInt(tokens[1]);
+        String month = tokens[2];
+        String period = tokens[3];
+        String indicator = tokens[4];
+        int dataValue = tryParseInt(tokens[5]);
+        return new OneItem(location, year, month, period, indicator, dataValue);
+    }
+
     public void importDateFromUrl() {
-        final String URL = "https://1drv.ms/u/s!Ash3pFpgn-Cnyr18zLwmbT6q_S0Psg?e=EQiwfQ";
+//        final String fileURL = "https://1drv.ms/u/s!Ash3pFpgn-Cnyr18zLwmbT6q_S0Psg?e=EQiwfQ";
+        final String fileURL = "https://www.dropbox.com/s/t8vh8a1rgq41d86/StateData.csv?st=p2b1ypzw&dl=1";
+        try {
+            URI uri = new URI(fileURL);
+            URL url = uri.toURL();
+
+            // overcome HTTP 403 (Forbidden) error
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+            // Set a user-agent to mimic a browser
+            connection.setRequestProperty("User-Agent", "Mozilla/5.0");
+
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
+            String line = null;
+
+            while ((line = reader.readLine()) != null) {
+                if(line.startsWith("<")) continue;
+                if(!line.contains(",")) continue;
+                System.out.format("line: %s\n", line);
+                OneItem oneItem = extractItemFromText(line);
+                lstOneItems.add( oneItem );
+            }
+
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     // Write a method that does something with the data
@@ -119,7 +161,8 @@ public class Data
         Data d = new Data(); // change to your class name
 
         // Call your method to read in the data
-        d.importDataFromFile();
+        //d.importDataFromFile();
+        d.importDateFromUrl();
 
         // Call your method to do something with the data
         d.display2023Information();
