@@ -25,4 +25,6 @@ An example of using a URL to read and process a .csv file stored in DropBox.
 ## Developer Notes
 
 * [URL to StateData.csv](https://1drv.ms/u/s!Ash3pFpgn-Cnyr18zLwmbT6q_S0Psg?e=EQiwfQ)
-
+* IMPORTANT NOTE: When reading a text file from DropBox, you MUST change the end of the generated
+public link from `&dl=0` to `&dl=1`; otherwise, you get HTML instead of text.
+        
