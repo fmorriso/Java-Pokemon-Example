@@ -72,7 +72,7 @@ public class Data
 
     // Write a method to read in the data (it may throw an exception)
     // STATE,Population in 2016 from census.gov,Non-insured percentage (percentage of people who do not have health insurance in 2016 from CDC.gov),Firearms Death RATE of death from firearms for every 100K population in 2016 from CDC.gov,Firearm Deaths totals in 2016,Drug Overdose death rates per 100K population 2016,Drug overdose deaths total,URL for state info: base url https://www.cdc.gov
-    public void importData(){
+    public void importDataFromFile(){
         String location, month, period, indicator;
         int year, dataValue;
         String[] tokens = null;
@@ -98,6 +98,10 @@ public class Data
         }
     }
 
+    public void importDateFromUrl() {
+        final String URL = "https://1drv.ms/u/s!Ash3pFpgn-Cnyr18zLwmbT6q_S0Psg?e=EQiwfQ";
+    }
+
     // Write a method that does something with the data
     // for example find the object with a min or max attribute value
     // or print out all the objects of a certain attribute value.
@@ -115,7 +119,7 @@ public class Data
         Data d = new Data(); // change to your class name
 
         // Call your method to read in the data
-        d.importData();
+        d.importDataFromFile();
 
         // Call your method to do something with the data
         d.display2023Information();
