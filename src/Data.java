@@ -118,8 +118,7 @@ public class Data {
         // public link from &dl=0 to &dl=1; otherwise, you get HTML instead of text.
         final String fileURL = "https://www.dropbox.com/s/t8vh8a1rgq41d86/StateData.csv?st=p2b1ypzw&dl=1";
         try {
-            URI uri = new URI(fileURL); // because new URL(fileUrl) has been deprecated.
-            URL url = uri.toURL();
+            URL url = new URI(fileURL).toURL(); // because new URL(fileUrl) has been deprecated.
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
             String line = "";
