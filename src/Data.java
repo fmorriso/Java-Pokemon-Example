@@ -111,27 +111,21 @@ public class Data
         return new OneItem(location, year, month, period, indicator, dataValue);
     }
 
+    /**
+     * Import a list of OneItem instances from a .csv file stored on the web in DropBox and publicly accessible.
+     */
     public void importDateFromUrl() {
-//        final String fileURL = "https://1drv.ms/u/s!Ash3pFpgn-Cnyr18zLwmbT6q_S0Psg?e=EQiwfQ";
+        // IMPORTANT NOTE: When reading a text file from DropBox, you MUST change the end of the generated
+        // public link from &dl=0 to &dl=1; otherwise, you get HTML instead of text.
         final String fileURL = "https://www.dropbox.com/s/t8vh8a1rgq41d86/StateData.csv?st=p2b1ypzw&dl=1";
         try {
-            URI uri = new URI(fileURL);
+            URI uri = new URI(fileURL); // because new URL(fileUrl) has been deprecated.
             URL url = uri.toURL();
 
-            // overcome HTTP 403 (Forbidden) error
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-
-            // Set a user-agent to mimic a browser
-            connection.setRequestProperty("User-Agent", "Mozilla/5.0");
-
-
             BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()));
-            String line = null;
+            String line = "";
 
             while ((line = reader.readLine()) != null) {
-                if(line.startsWith("<")) continue;
-                if(!line.contains(",")) continue;
-                System.out.format("line: %s\n", line);
                 OneItem oneItem = extractItemFromText(line);
                 lstOneItems.add( oneItem );
             }
