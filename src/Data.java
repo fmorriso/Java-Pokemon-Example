@@ -78,9 +78,6 @@ public class Data {
     // Write a method to read in the data (it may throw an exception)
     // STATE,Population in 2016 from census.gov,Non-insured percentage (percentage of people who do not have health insurance in 2016 from CDC.gov),Firearms Death RATE of death from firearms for every 100K population in 2016 from CDC.gov,Firearm Deaths totals in 2016,Drug Overdose death rates per 100K population 2016,Drug overdose deaths total,URL for state info: base url https://www.cdc.gov
     public void importDataFromFile() {
-        String location, month, period, indicator;
-        int year, dataValue;
-        String[] tokens = null;
         Path filePath = Paths.get("data\\StateData.csv");
         String fileNameWithPath = filePath.toAbsolutePath().toString();
         try (BufferedReader reader = new BufferedReader(new FileReader(fileNameWithPath))) {
@@ -95,7 +92,7 @@ public class Data {
                 }
                 //     Create a new  object from the attributes.
                 //     and save it into the ArrayList.
-                //lstOneItems.add( oneItem );
+                lstOneItems.add( oneItem );
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -144,11 +141,9 @@ public class Data {
     // for example find the object with a min or max attribute value
     // or print out all the objects of a certain attribute value.
     public void display2023Information() {
-        for (OneItem oneItem : lstOneItems) {
-            if (oneItem.getYear() == 2023) {
+        for (OneItem oneItem : lstOneItems)
+            if (oneItem.getYear() == 2023)
                 System.out.println(oneItem);
-            }
-        }
     }
 
     public static void main(String[] args) throws IOException {
