@@ -39,29 +39,12 @@ class OneItem {
     }
 
     // Add any getters and toString methods that you need
-    public String getLocation() {
-        return location;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public String getMonth() {
-        return month;
-    }
-
-    public String getBirthRate() {
-        return period;
-    }
-
-    public String getIndicator() {
-        return indicator;
-    }
-
-    public int getDataValue() {
-        return dataValue;
-    }
+    public String getLocation() {return location;}
+    public int getYear() {return year; }
+    public String getMonth() {return month;}
+    public String getBirthRate() {return period;}
+    public String getIndicator() {return indicator;}
+    public int getDataValue() {return dataValue;}
 
     @Override
     public String toString() {
