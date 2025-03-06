@@ -7,7 +7,7 @@ An example of using a URL to read and process a .csv file stored in DropBox.
 |:---------|---------:|
 | Java     | 23.0.2.0 |
 | IntelliJ | 2024.3.3 |
-| VSCode   |   1.97.2 |
+| VSCode   |   1.98.0 |
 
 ## Change History
 
